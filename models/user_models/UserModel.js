@@ -42,29 +42,60 @@ const User = new Schema(
       default: new Date(),
     },
 
-    ajo: {
-      type: Array,
-      default: [],
-    },
+    ajo: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'ajos',
+      },
+    ],
 
     rank: {
-      type: Object,
-      default: {
-        rank_title: String,
-        rank_number: Number,
+      type: Schema.Types.ObjectId,
+      ref: 'ranks',
+    },
+
+    payment: {
+      active: {
+        type: String,
+        default: 'None',
+      },
+      cards: [
+        {
+          card_number: Number,
+          holder: String,
+          exp_date: Date,
+          card_type: String,
+        },
+      ],
+    },
+
+    account: {
+      balance: {
+        type: Number,
+        default: 45000,
       },
     },
 
-    cards: {
-      type: Array,
-      default: [],
+    report: {
+      sent: {
+        type: Number,
+        default: 10000,
+      },
+      received: {
+        type: Number,
+        default: 25000,
+      },
     },
 
-    notifications: {
-      type: Array,
-      default: [],
-    },
+    notifications: [
+      {
+        time: Date,
+        message: String,
+        msg_type: String,
+      },
+    ],
   },
+
   { collection: 'users' }
 );
 

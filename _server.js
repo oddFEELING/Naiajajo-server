@@ -5,7 +5,10 @@ const routes = require('./routes');
 const cors = require('cors');
 
 const app = express(); //--> App instance
-const PORT = 4000; //-->  server port
+
+process.env.JWT_SECRET =
+  'rvoiwovijbiabiui@^%#6Tk7j8bkjb-wkj0b4679kjKJBER#^R#%7n';
+const PORT = process.env.PORT || 4000; //-->  server port
 app.use(cors());
 app.use(bodyParser.json()); //-->  parse incoming body to json format
 app.use('/', routes);

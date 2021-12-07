@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const UserAccount = require('../../models/user_models/UserModel');
 
 const signup = async (req, res) => {
@@ -7,10 +8,24 @@ const signup = async (req, res) => {
   console.log(`Received --> ${JSON.stringify(data)}`);
 
   try {
-    UserAccount.create({
+    const newUser = await UserAccount.create({
       ...data,
     });
-    res.json({ status: 'ok', message: 'user created' });
+
+    const UserData = {
+      id: newUser._id,
+      firstname: newUser.firstname,
+      email: newUser.email,
+    };
+
+    const token = jwt.sign({ ...UserData }, process.env.JWT_SECRET);
+
+    // send token to user
+    res.json({
+      status: 'ok',
+      message: 'User created',
+      token: token,
+    });
   } catch (err) {
     console.log(`Eror --> ${err}`);
     res.json({ status: 'failed', err: err });

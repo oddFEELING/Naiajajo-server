@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/_api/user/signup', User.signup);
 router.post('/_api/user/login', User.login);
+router.post('/_api/user/get-user', User.getUser);
 
 //--------------------------------------->  Ajo routes
 router.post('/_api/ajo/get_ajo', Ajo.create);
